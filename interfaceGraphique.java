@@ -49,10 +49,17 @@ public class InterfaceGraphique {
                             System.out.println("Case sélectionnée : " + caseSelectionnee.getX() + ", " + caseSelectionnee.getY());
                         }
                     } else {
-                        // Deuxième clic pour déplacer
-                        if (currentCase.estVide()) {
+                        // Deuxième clic pour tenter un déplacement
+                        if (caseSelectionnee.getPiece().estDeplacementValide(caseSelectionnee, currentCase, plateau)) {
                             currentCase.placerPiece(caseSelectionnee.getPiece());
                             caseSelectionnee.retirerPiece();
+
+                            // Promouvoir un pion en Dame s'il atteint le bord opposé
+                            if (currentCase.getPiece() instanceof Pion &&
+                                (currentCase.getX() == 0 || currentCase.getX() == 7)) {
+                                currentCase.placerPiece(new Dame(currentCase.getPiece().getProprietaire()));
+                            }
+
                             caseSelectionnee = null; // Réinitialise la sélection
                             mettreAJourPlateau(); // Rafraîchit l'interface
                         } else {
