@@ -23,4 +23,12 @@ public class Case {
     public Piece getPiece() {
         return piece;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 }
