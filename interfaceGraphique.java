@@ -1,6 +1,4 @@
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.*;
 
 public class InterfaceGraphique {
@@ -8,6 +6,7 @@ public class InterfaceGraphique {
     private JPanel plateauPanel;
     private Plateau plateau;
     private Jeu jeu;
+    private Case caseSelectionnee = null;
 
     public InterfaceGraphique(Plateau plateau, Jeu jeu) {
         this.plateau = plateau;
@@ -36,29 +35,30 @@ public class InterfaceGraphique {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Case currentCase = plateau.getCase(i, j);
-                JButton caseBouton = new JButton();
+                CaseBouton caseBouton = new CaseBouton(currentCase.getPiece());
 
                 // Définir la couleur de fond des cases
                 caseBouton.setBackground((i + j) % 2 == 0 ? Color.WHITE : Color.GRAY);
 
-                // Ajouter un pion si la case contient une pièce
-                if (!currentCase.estVide()) {
-                    Piece piece = currentCase.getPiece();
-                    if (piece.getProprietaire() == jeu.getJoueurActuel()) {
-                        caseBouton.setText("●"); // Symbole pour le pion
-                        caseBouton.setForeground(Color.RED); // Couleur pour le joueur actuel
+                // Gérer les clics pour déplacer les pions
+                caseBouton.addActionListener(e -> {
+                    if (caseSelectionnee == null) {
+                        // Première sélection
+                        if (!currentCase.estVide()) {
+                            caseSelectionnee = currentCase;
+                            System.out.println("Case sélectionnée : " + caseSelectionnee.getX() + ", " + caseSelectionnee.getY());
+                        }
                     } else {
-                        caseBouton.setText("●");
-                        caseBouton.setForeground(Color.BLUE); // Couleur pour l'autre joueur
-                    }
-                }
-
-                // Gérer les clics sur les cases
-                caseBouton.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        System.out.println("Case cliquée : " + currentCase.getX() + ", " + currentCase.getY());
-                        // Ajouter la logique pour gérer le clic
+                        // Deuxième clic pour déplacer
+                        if (currentCase.estVide()) {
+                            currentCase.placerPiece(caseSelectionnee.getPiece());
+                            caseSelectionnee.retirerPiece();
+                            caseSelectionnee = null; // Réinitialise la sélection
+                            mettreAJourPlateau(); // Rafraîchit l'interface
+                        } else {
+                            System.out.println("Déplacement invalide.");
+                            caseSelectionnee = null;
+                        }
                     }
                 });
 

@@ -5,7 +5,6 @@ public class Pion extends Piece {
 
     @Override
     public boolean estDeplacementValide(Case source, Case destination) {
-        // Logique de validation spécifique aux pions
-        return true; // Simplifié pour l'exemple
+        return true; // Logique simplifiée
     }
 }

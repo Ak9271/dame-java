@@ -15,7 +15,6 @@ public class Plateau {
     }
 
     public void initialiserPlateau(Joueur joueur1, Joueur joueur2) {
-        // Placer les pions des joueurs sur le plateau
         for (int i = 0; i < 3; i++) {
             for (int j = (i % 2); j < 8; j += 2) {
                 cases[i][j].placerPiece(new Pion(joueur1));
