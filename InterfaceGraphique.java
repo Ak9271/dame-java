@@ -1,10 +1,9 @@
 import java.awt.*;
-import java.time.format.DateTimeFormatter;
 import javax.swing.*;
 
 public class InterfaceGraphique {
     private JFrame fenetre;
-    private JPanel plateauPanel;
+    private JPanel damier; // Déclaration de damier ici
     private Plateau plateau;
     private Jeu jeu;
     private Case caseSelectionnee = null;
@@ -23,7 +22,7 @@ public class InterfaceGraphique {
         fond_blanc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fenetre = new JFrame("Jeu de dames");
         fenetre.setSize(600, 600);
-        JPanel damier = new JPanel(new GridLayout(8, 8));
+        damier = new JPanel(new GridLayout(8, 8));
         mettreAJourPlateau();
         fond_blanc.add(fenetre);
         fenetre.add(damier);
@@ -48,6 +47,5 @@ public class InterfaceGraphique {
         }
         damier.revalidate();
         damier.repaint();
-        
     }
 }
