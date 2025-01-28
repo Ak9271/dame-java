@@ -1,28 +1,20 @@
 public class Pion extends Piece {
-    public Pion(Joueur proprietaire) {
-        super(proprietaire);
+    public Pion(Joueur var1) {
+       super(var1);
     }
-
-    @Override
-    public boolean estDeplacementValide(Case source, Case destination, Plateau plateau) {
-        int deltaX = destination.getX() - source.getX();
-        int deltaY = destination.getY() - source.getY();
-
-        // Déplacement simple en diagonale (1 case)
-        if (Math.abs(deltaX) == 1 && Math.abs(deltaY) == 1) {
-            return destination.estVide();
-        }
-
-        // Capture (sauter une pièce adverse)
-        if (Math.abs(deltaX) == 2 && Math.abs(deltaY) == 2) {
-            int middleX = (source.getX() + destination.getX()) / 2;
-            int middleY = (source.getY() + destination.getY()) / 2;
-            Case middleCase = plateau.getCase(middleX, middleY);
-
-            return destination.estVide() && middleCase.getPiece() != null &&
-                   middleCase.getPiece().getProprietaire() != this.getProprietaire();
-        }
-
-        return false; // Déplacement invalide
+ 
+    public boolean estDeplacementValide(Case var1, Case var2, Plateau var3) {
+       int var4 = var2.getX() - var1.getX();
+       int var5 = var2.getY() - var1.getY();
+       if (Math.abs(var4) == 1 && Math.abs(var5) == 1) {
+          return var2.estVide();
+       } else if (Math.abs(var4) == 2 && Math.abs(var5) == 2) {
+          int var6 = (var1.getX() + var2.getX()) / 2;
+          int var7 = (var1.getY() + var2.getY()) / 2;
+          Case var8 = var3.getCase(var6, var7);
+          return var2.estVide() && var8.getPiece() != null && var8.getPiece().getProprietaire() != this.getProprietaire();
+       } else {
+          return false;
+       }
     }
-}
+ }

@@ -8,7 +8,5 @@ public abstract class Piece {
     public Joueur getProprietaire() {
         return proprietaire;
     }
-
-    // Méthode abstraite pour valider les déplacements
     public abstract boolean estDeplacementValide(Case source, Case destination, Plateau plateau);
 }
