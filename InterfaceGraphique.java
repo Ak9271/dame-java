@@ -1,12 +1,13 @@
 import java.awt.*;
+import java.util.regex.MatchResult;
 import javax.swing.*;
 
 public class InterfaceGraphique {
     private JFrame fenetre;
-    private JPanel damier; // Déclaration de damier ici
+    private JPanel damier;
     private Plateau plateau;
     private Jeu jeu;
-    private Case caseSelectionnee = null;
+    private Case caseChoisi = null;
     private Joueur joueurActif; 
 
     public InterfaceGraphique(Plateau plateau, Jeu jeu) {
@@ -47,5 +48,25 @@ public class InterfaceGraphique {
         }
         damier.revalidate();
         damier.repaint();
+    }
+
+    private void actionClic (CaseBouton caseBouton, Case caseActuelle) {
+        caseBouton.addActionListener(a -> {
+            if (caseChoisi == null ) {
+                if (caseActuelle.estVide() && caseActuelle.getPiece().getProprietaire() == joueurActif) {
+                    caseChoisi = caseActuelle;
+                    System.out.println("Case séléctionnée: " + caseChoisi.getX() + ", " + caseChoisi.getY());
+                }
+            } else if (caseChoisi.getPiece().estDeplacementValide(caseChoisi, caseActuelle, plateau)) {
+                int deplacementX = caseActuelle.getX() - caseChoisi.getX();
+                int deplacementY = caseActuelle.getY() - caseChoisi.getY();
+                if (Math.abs(deplacementX) == 2 && Math.abs(deplacementY) == 2) {
+                    int milieuX = (caseChoisi.getX() + caseActuelle.getX()) / 2;
+                    int milieuY = (caseChoisi.getY() + caseActuelle.getY()) / 2;
+                    
+                }
+            }
+            
+        })
     }
 }
