@@ -7,7 +7,10 @@ public class InterfaceGraphique {
     private Plateau plateau;
     private Jeu jeu;
     private Case caseChoisi = null;
-    private Joueur joueurActif; 
+    private Joueur joueurActif;
+
+    public static final Color CASE_CYAN = new Color(214,234,248);
+    public static final Color CASE_WHITE = new Color(234,242,248);
 
     public InterfaceGraphique(Plateau plateau, Jeu jeu) {
         this.plateau = plateau;
@@ -35,7 +38,7 @@ public class InterfaceGraphique {
             for (int j = 0; j < 8; j++) {
                 Case caseActuelle = plateau.getCase(i, j);
                 CaseBouton caseBouton = new CaseBouton(caseActuelle.getPiece());
-                caseBouton.setBackground((i+j)%2 == 0 ? Color.WHITE : Color.PINK);
+                caseBouton.setBackground((i+j)%2 == 0 ? InterfaceGraphique.CASE_WHITE : InterfaceGraphique.CASE_CYAN);
                 actionClic(caseBouton, caseActuelle);
                 damier.add(caseBouton);
             }

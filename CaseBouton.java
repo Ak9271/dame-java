@@ -2,6 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 
 public class CaseBouton extends JButton {
+    public static final Color PION_GRAY = new Color(224,224,224);
     private Piece piece;
 
     public CaseBouton(Piece piece) {
@@ -27,9 +28,9 @@ public class CaseBouton extends JButton {
 
         if (piece != null) {
             if (piece.getProprietaire().getNom().equals("Joueur 1")) {
-                g.setColor(Color.RED);
+                g.setColor(CaseBouton.PION_GRAY);
             } else {
-                g.setColor(Color.BLUE);
+                g.setColor(Color.BLACK);
             }
             int taille = Math.min(getWidth(), getHeight()) - 20;
             g.fillOval(10, 10, taille, taille);
