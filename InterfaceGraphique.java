@@ -66,7 +66,6 @@ public class InterfaceGraphique {
                     int milieuY = (caseChoisi.getY() + caseActuelle.getY()) / 2;
                     Case caseMilieu = plateau.getCase(milieuX, milieuY);
                     caseMilieu.retirerPiece();
-                    statistiquesJeu.pionsManges(joueurActif);
                     System.out.println("Pièce mangée en: " + milieuX + ", " + milieuY);
                 }
                 caseActuelle.placerPiece(caseChoisi.getPiece());
