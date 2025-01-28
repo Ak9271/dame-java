@@ -16,15 +16,29 @@ public class Dame extends Piece {
         int stepY = deplacementY / Math.abs(deplacementY);
         int x = source.getX() + stepX;
         int y = source.getY() + stepY;
+        boolean pieceCapturee = false;
+        Case caseCapturee = null;
 
         while (x != destination.getX() && y != destination.getY()) {
-            if (!plateau.getCase(x, y).estVide()) {
-                return false;
+            Case caseActuelle = plateau.getCase(x, y);
+            if (!caseActuelle.estVide()) {
+                if (pieceCapturee || caseActuelle.getPiece().getProprietaire() == this.getProprietaire()) {
+                    return false;
+                }
+                pieceCapturee = true;
+                caseCapturee = caseActuelle;
             }
             x += stepX;
             y += stepY;
         }
 
-        return destination.estVide();
+        if (destination.estVide() && pieceCapturee) {
+            if (caseCapturee != null) {
+                caseCapturee.retirerPiece();
+            }
+            return true;
+        }
+
+        return false;
     }
 }
