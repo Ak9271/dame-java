@@ -64,9 +64,25 @@ public class InterfaceGraphique {
                     int milieuX = (caseChoisi.getX() + caseActuelle.getX()) / 2;
                     int milieuY = (caseChoisi.getY() + caseActuelle.getY()) / 2;
                     Case caseMilieu = (caseChoisi.getCase(milieuX, milieuY));
+                    caseMilieu.retirerPiece();
+                    System.out.println("Piece mangée en: " + milieuX + ", " + milieuY);
                 }
-            }
-            
-        })
+                caseActuelle.placerPiece(caseChoisi.getPiece());
+                caseChoisi.retirerPiece();
+                if (caseActuelle.getPiece() instanceof Pion && (caseActuelle.getX() == 0 || caseActuelle.getX() == 7)) {
+                    caseActuelle.placerPiece(new Dame(caseActuelle.getPiece().getProprietaire()));
+                }
+                changeJoueurActif();
+                caseChoisi = null; 
+                mettreAJourPlateau();
+            } else {
+                System.out.println("Déplacement invalide");
+                caseChoisi = null;
+            }  
+        });
+    }
+
+    private void changeJoueurActif() {
+
     }
 }
