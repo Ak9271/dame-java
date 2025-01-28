@@ -13,7 +13,7 @@ public class InterfaceGraphique {
     public InterfaceGraphique(Plateau plateau, Jeu jeu) {
         this.plateau = plateau;
         this.jeu = jeu;
-        this.joueurActif = jeu.getJoueurActif();
+        this.joueurActif = jeu.getJoueur1();
         initialiserFenetre();
     }
 
@@ -31,7 +31,7 @@ public class InterfaceGraphique {
         fond_blanc.setVisible(true);
     }
 
-    private void afficher () {
+    public void afficher () {
         fenetre.setVisible(true);
     }
 
@@ -41,7 +41,7 @@ public class InterfaceGraphique {
             for (int j = 0; j < 8; j++) {
                 Case caseActuelle = plateau.getCase(i, j);
                 CaseBouton caseBouton = new CaseBouton(caseActuelle.getPiece());
-                caseBouton.setBackground((i+j)%2 == 0 ? Color.WHITE : Color.BLACK);
+                caseBouton.setBackground((i+j)%2 == 0 ? Color.WHITE : Color.PINK);
                 actionClic(caseBouton, caseActuelle);
                 damier.add(caseBouton);
             }
