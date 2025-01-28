@@ -83,6 +83,10 @@ public class InterfaceGraphique {
     }
 
     private void changeJoueurActif() {
-
+        if (joueurActif == jeu.getJoueur1()) {
+            joueurActif = jeu.getJoueur2();
+        } else {
+            joueurActif = jeu.getJoueur1();
+        }
     }
 }
