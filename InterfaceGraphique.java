@@ -68,7 +68,7 @@ public class InterfaceGraphique {
                 }
                 caseActuelle.placerPiece(caseChoisi.getPiece());
                 caseChoisi.retirerPiece();
-                if (caseActuelle.getPiece() instanceof Pion && (caseActuelle.getX() == 0 || caseActuelle.getX() == 7)) {
+                if (caseActuelle.getPiece() instanceof Pion && (caseActuelle.getX() == 0 || caseActuelle.getX() == 9)) {
                     caseActuelle.placerPiece(new Dame(caseActuelle.getPiece().getProprietaire()));
                 }
                 changeJoueurActif();
