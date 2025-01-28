@@ -8,4 +8,5 @@ public abstract class Piece {
     public Joueur getProprietaire() {
         return proprietaire;
     }
+    public abstract boolean estDeplacementValide(Case source, Case destination, Plateau plateau);
 }
