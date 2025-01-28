@@ -10,7 +10,7 @@ public class InterfaceGraphique {
     private Joueur joueurActif;
 
     public static final Color CASE_CYAN = new Color(214,234,248);
-    public static final Color CASE_WHITE = new Color(234,242,248);
+    public static final Color CASE_WHITE = new Color(232,245,255);
     public static final Color CASE_BLEU = new Color(44,62,80);
 
 

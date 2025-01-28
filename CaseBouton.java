@@ -2,7 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 
 public class CaseBouton extends JButton {
-    public static final Color PION_GRAY = new Color(224,224,224);
+    public static final Color PION_GRAY = new Color(211,211,211);
     public static final Color PION_BLEU = new Color(33,44,53);
 
     private Piece piece;
