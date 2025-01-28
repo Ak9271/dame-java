@@ -8,15 +8,16 @@ public class InterfaceGraphique {
     private Jeu jeu;
     private Case caseChoisi = null;
     private Joueur joueurActif;
+    private StatistiquesJeu statistiquesJeu;
 
     public static final Color CASE_WHITE = new Color(232,245,255);
     public static final Color CASE_BLEU = new Color(44,62,80);
-
 
     public InterfaceGraphique(Plateau plateau, Jeu jeu) {
         this.plateau = plateau;
         this.jeu = jeu;
         this.joueurActif = jeu.getJoueur1();
+        this.statistiquesJeu = new StatistiquesJeu(jeu.getJoueur1(), jeu.getJoueur2());
         initialiserFenetre();
     }
 
@@ -24,12 +25,14 @@ public class InterfaceGraphique {
         fenetre = new JFrame("Jeu de dames");
         fenetre.setSize(800, 800);
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        fenetre.setLayout(new BorderLayout());
         damier = new JPanel(new GridLayout(10, 10));
         mettreAJourPlateau();
-        fenetre.add(damier);
+        fenetre.add(damier, BorderLayout.CENTER);
+        fenetre.add(statistiquesJeu, BorderLayout.SOUTH);
     }
 
-    public void afficher () {
+    public void afficher() {
         fenetre.setVisible(true);
     }
 
@@ -39,7 +42,7 @@ public class InterfaceGraphique {
             for (int j = 0; j < 10; j++) {
                 Case caseActuelle = plateau.getCase(i, j);
                 CaseBouton caseBouton = new CaseBouton(caseActuelle.getPiece());
-                caseBouton.setBackground((i+j)%2 == 0 ? InterfaceGraphique.CASE_BLEU : InterfaceGraphique.CASE_WHITE);
+                caseBouton.setBackground((i + j) % 2 == 0 ? InterfaceGraphique.CASE_BLEU : InterfaceGraphique.CASE_WHITE);
                 actionClic(caseBouton, caseActuelle);
                 damier.add(caseBouton);
             }
@@ -48,23 +51,23 @@ public class InterfaceGraphique {
         damier.repaint();
     }
 
-    private void actionClic (CaseBouton caseBouton, Case caseActuelle) {
+    private void actionClic(CaseBouton caseBouton, Case caseActuelle) {
         caseBouton.addActionListener(a -> {
-            if (caseChoisi == null ) {
+            if (caseChoisi == null) {
                 if (!caseActuelle.estVide() && caseActuelle.getPiece().getProprietaire() == joueurActif) {
                     caseChoisi = caseActuelle;
-                    System.out.println("Case séléctionnée: " + caseChoisi.getX() + ", " + caseChoisi.getY());
+                    System.out.println("Case sélectionnée: " + caseChoisi.getX() + ", " + caseChoisi.getY());
                 }
             } else if (caseChoisi.getPiece().estDeplacementValide(caseChoisi, caseActuelle, plateau)) {
                 int deplacementX = caseActuelle.getX() - caseChoisi.getX();
                 int deplacementY = caseActuelle.getY() - caseChoisi.getY();
                 if (Math.abs(deplacementX) == 2 && Math.abs(deplacementY) == 2) {
-                    
                     int milieuX = (caseChoisi.getX() + caseActuelle.getX()) / 2;
                     int milieuY = (caseChoisi.getY() + caseActuelle.getY()) / 2;
-                    Case caseMilieu = (plateau.getCase(milieuX, milieuY));
+                    Case caseMilieu = plateau.getCase(milieuX, milieuY);
                     caseMilieu.retirerPiece();
-                    System.out.println("Piece mangée en: " + milieuX + ", " + milieuY);
+                    statistiquesJeu.pionsManges(joueurActif);
+                    System.out.println("Pièce mangée en: " + milieuX + ", " + milieuY);
                 }
                 caseActuelle.placerPiece(caseChoisi.getPiece());
                 caseChoisi.retirerPiece();
@@ -72,22 +75,19 @@ public class InterfaceGraphique {
                     caseActuelle.placerPiece(new Dame(caseActuelle.getPiece().getProprietaire()));
                 }
                 changeJoueurActif();
-                caseChoisi = null; 
+                caseChoisi = null;
                 mettreAJourPlateau();
             } else {
                 System.out.println("Déplacement invalide");
                 caseChoisi = null;
-            }  
+            }
         });
     }
 
     private void changeJoueurActif() {
-        if (joueurActif == jeu.getJoueur1()) {
-            joueurActif = jeu.getJoueur2();
-        } else {
-            joueurActif = jeu.getJoueur1();
-        }
-        System.out.println("Au tour du " + joueurActif.getNom());
+        statistiquesJeu.changerJoueurActif();
+        joueurActif = statistiquesJeu.getJoueurActif();
+        System.out.println("Au tour de " + joueurActif.getNom());
         System.out.println("-----------------------------------------");
     }
 }
