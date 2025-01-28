@@ -22,7 +22,7 @@ public class Dame extends Piece {
         while (x != destination.getX() && y != destination.getY()) {
             Case caseActuelle = plateau.getCase(x, y);
             if (!caseActuelle.estVide()) {
-                if (pieceCapturee || caseActuelle.getPiece().getProprietaire() == this.getProprietaire()) {
+                if (pieceCapturee == true || caseActuelle.getPiece().getProprietaire() == this.getProprietaire()) {
                     return false;
                 }
                 pieceCapturee = true;
@@ -38,7 +38,6 @@ public class Dame extends Piece {
             }
             return true;
         }
-
-        return false;
+        return destination.estVide();
     }
 }
