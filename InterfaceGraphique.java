@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.util.regex.MatchResult;
 import javax.swing.*;
 
 public class InterfaceGraphique {
@@ -18,17 +17,12 @@ public class InterfaceGraphique {
     }
 
     private void initialiserFenetre() {
-        JFrame fond_blanc = new JFrame("");
-        fond_blanc.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        fond_blanc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fenetre = new JFrame("Jeu de dames");
         fenetre.setSize(600, 600);
+        fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         damier = new JPanel(new GridLayout(8, 8));
         mettreAJourPlateau();
-        fond_blanc.add(fenetre);
         fenetre.add(damier);
-        afficher();
-        fond_blanc.setVisible(true);
     }
 
     public void afficher () {
@@ -53,7 +47,7 @@ public class InterfaceGraphique {
     private void actionClic (CaseBouton caseBouton, Case caseActuelle) {
         caseBouton.addActionListener(a -> {
             if (caseChoisi == null ) {
-                if (caseActuelle.estVide() && caseActuelle.getPiece().getProprietaire() == joueurActif) {
+                if (!caseActuelle.estVide() && caseActuelle.getPiece().getProprietaire() == joueurActif) {
                     caseChoisi = caseActuelle;
                     System.out.println("Case séléctionnée: " + caseChoisi.getX() + ", " + caseChoisi.getY());
                 }
