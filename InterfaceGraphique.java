@@ -11,6 +11,8 @@ public class InterfaceGraphique {
 
     public static final Color CASE_CYAN = new Color(214,234,248);
     public static final Color CASE_WHITE = new Color(234,242,248);
+    public static final Color CASE_BLEU = new Color(44,62,80);
+
 
     public InterfaceGraphique(Plateau plateau, Jeu jeu) {
         this.plateau = plateau;
@@ -21,7 +23,7 @@ public class InterfaceGraphique {
 
     private void initialiserFenetre() {
         fenetre = new JFrame("Jeu de dames");
-        fenetre.setSize(600, 600);
+        fenetre.setSize(800, 800);
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         damier = new JPanel(new GridLayout(8, 8));
         mettreAJourPlateau();
@@ -38,7 +40,7 @@ public class InterfaceGraphique {
             for (int j = 0; j < 8; j++) {
                 Case caseActuelle = plateau.getCase(i, j);
                 CaseBouton caseBouton = new CaseBouton(caseActuelle.getPiece());
-                caseBouton.setBackground((i+j)%2 == 0 ? InterfaceGraphique.CASE_WHITE : InterfaceGraphique.CASE_CYAN);
+                caseBouton.setBackground((i+j)%2 == 0 ? InterfaceGraphique.CASE_WHITE : InterfaceGraphique.CASE_BLEU);
                 actionClic(caseBouton, caseActuelle);
                 damier.add(caseBouton);
             }
