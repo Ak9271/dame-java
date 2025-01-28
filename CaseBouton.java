@@ -2,8 +2,10 @@ import java.awt.*;
 import javax.swing.*;
 
 public class CaseBouton extends JButton {
-    public static final Color PION_GRAY = new Color(211,211,211);
-    public static final Color PION_BLEU = new Color(33,44,53);
+    public static final Color PION_GRAY = new Color(211, 211, 211);
+    public static final Color PION_BLEU = new Color(33, 44, 53);
+    public static final Color DAME_GRAY = new Color(169, 169, 169); // reine joueur 1
+    public static final Color DAME_BLEU = new Color(94, 128, 154); // reine joueur 2
 
     private Piece piece;
 
@@ -29,12 +31,20 @@ public class CaseBouton extends JButton {
         g.fillRect(0, 0, getWidth(), getHeight());
 
         if (piece != null) {
-            if (piece.getProprietaire().getNom().equals("Joueur 1")) {
-                g.setColor(CaseBouton.PION_GRAY);
-            } else {
-                g.setColor(CaseBouton.PION_BLEU);
-            }
             int taille = Math.min(getWidth(), getHeight()) - 20;
+            if (piece instanceof Dame) {
+                if (piece.getProprietaire().getNom().equals("Joueur 1")) {
+                    g.setColor(DAME_GRAY);
+                } else {
+                    g.setColor(DAME_BLEU);
+                }
+            } else {
+                if (piece.getProprietaire().getNom().equals("Joueur 1")) {
+                    g.setColor(PION_GRAY);
+                } else {
+                    g.setColor(PION_BLEU);
+                }
+            }
             g.fillOval(10, 10, taille, taille);
         }
     }

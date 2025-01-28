@@ -25,7 +25,7 @@ public class InterfaceGraphique {
         fenetre = new JFrame("Jeu de dames");
         fenetre.setSize(800, 800);
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        damier = new JPanel(new GridLayout(8, 8));
+        damier = new JPanel(new GridLayout(10, 10));
         mettreAJourPlateau();
         fenetre.add(damier);
     }
@@ -36,8 +36,8 @@ public class InterfaceGraphique {
 
     public void mettreAJourPlateau() {
         damier.removeAll();
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
                 Case caseActuelle = plateau.getCase(i, j);
                 CaseBouton caseBouton = new CaseBouton(caseActuelle.getPiece());
                 caseBouton.setBackground((i+j)%2 == 0 ? InterfaceGraphique.CASE_WHITE : InterfaceGraphique.CASE_BLEU);
@@ -60,6 +60,7 @@ public class InterfaceGraphique {
                 int deplacementX = caseActuelle.getX() - caseChoisi.getX();
                 int deplacementY = caseActuelle.getY() - caseChoisi.getY();
                 if (Math.abs(deplacementX) == 2 && Math.abs(deplacementY) == 2) {
+                    
                     int milieuX = (caseChoisi.getX() + caseActuelle.getX()) / 2;
                     int milieuY = (caseChoisi.getY() + caseActuelle.getY()) / 2;
                     Case caseMilieu = (plateau.getCase(milieuX, milieuY));
@@ -87,5 +88,7 @@ public class InterfaceGraphique {
         } else {
             joueurActif = jeu.getJoueur1();
         }
+        System.out.println("Au tour du " + joueurActif.getNom());
+        System.out.println("-----------------------------------------");
     }
 }
