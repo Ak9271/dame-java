@@ -63,7 +63,7 @@ public class InterfaceGraphique {
                 if (Math.abs(deplacementX) == 2 && Math.abs(deplacementY) == 2) {
                     int milieuX = (caseChoisi.getX() + caseActuelle.getX()) / 2;
                     int milieuY = (caseChoisi.getY() + caseActuelle.getY()) / 2;
-                    
+                    Case caseMilieu = (caseChoisi.getCase(milieuX, milieuY));
                 }
             }
             
