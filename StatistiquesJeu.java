@@ -45,6 +45,14 @@ public class StatistiquesJeu extends JPanel {
         }
     }
 
+    public void Victoire(Joueur joueur) {
+        if (joueur == joueur1 && scoreJoueur1 == 20) {
+            System.out.println("Victoire du Joueur 1");
+        } else if (joueur == joueur2 && scoreJoueur2 == 20) {
+            System.out.println("Victoire du Joueur 2");
+        }
+    }
+
     public Joueur getJoueurActif() {
         return joueurActif;
     }
