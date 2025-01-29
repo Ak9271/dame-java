@@ -21,9 +21,9 @@ public class StatistiquesJeu extends JPanel {
         labelActif = new JLabel("Au tour du : " + joueurActif.getNom());
         labelPointJoueur1 = new JLabel("Score du Joueur 1 : " + scoreJoueur1);
         labelPointJoueur2 = new JLabel("Score du Joueur 2 : " + scoreJoueur2);
+        add(labelActif);
         add(labelPointJoueur1);
         add(labelPointJoueur2);
-        add(labelActif);
     }
 
     public void changerJoueurActif() {

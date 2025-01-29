@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.List;
 import javax.swing.*;
 
 public class InterfaceGraphique {
@@ -53,33 +54,41 @@ public class InterfaceGraphique {
 
     private void actionClic(CaseBouton caseBouton, Case caseActuelle) {
         caseBouton.addActionListener(a -> {
+            List<Case> mangePossible = plateau.MangePossible(joueurActif);
             if (caseChoisi == null) {
                 if (!caseActuelle.estVide() && caseActuelle.getPiece().getProprietaire() == joueurActif) {
                     caseChoisi = caseActuelle;
                     System.out.println("Case sélectionnée: " + caseChoisi.getX() + ", " + caseChoisi.getY());
                 }
-            } else if (caseChoisi.getPiece().estDeplacementValide(caseChoisi, caseActuelle, plateau)) {
-                int deplacementX = caseActuelle.getX() - caseChoisi.getX();
-                int deplacementY = caseActuelle.getY() - caseChoisi.getY();
-                if (Math.abs(deplacementX) == 2 && Math.abs(deplacementY) == 2) {
-                    int milieuX = (caseChoisi.getX() + caseActuelle.getX()) / 2;
-                    int milieuY = (caseChoisi.getY() + caseActuelle.getY()) / 2;
-                    Case caseMilieu = plateau.getCase(milieuX, milieuY);
-                    caseMilieu.retirerPiece();
-                    statistiquesJeu.ScoreJoueur(joueurActif);
-                    System.out.println("Pièce mangée en: " + milieuX + ", " + milieuY);
-                }
-                caseActuelle.placerPiece(caseChoisi.getPiece());
-                caseChoisi.retirerPiece();
-                if (caseActuelle.getPiece() instanceof Pion && (caseActuelle.getX() == 0 || caseActuelle.getX() == 9)) {
-                    caseActuelle.placerPiece(new Dame(caseActuelle.getPiece().getProprietaire()));
-                }
-                changeJoueurActif();
-                caseChoisi = null;
-                mettreAJourPlateau();
             } else {
-                System.out.println("Déplacement invalide");
-                caseChoisi = null;
+                boolean mouvementValide = caseChoisi.getPiece().estDeplacementValide(caseChoisi, caseActuelle, plateau);
+                if (!mangePossible.isEmpty() && !mangePossible.contains(caseChoisi)) {
+                    System.out.println("Vous devez capturer une pièce !");
+                    caseChoisi = null;
+                    return;
+                }
+                if (mouvementValide) {
+                    int deplacementX = caseActuelle.getX() - caseChoisi.getX();
+                    int deplacementY = caseActuelle.getY() - caseChoisi.getY();
+                    if (Math.abs(deplacementX) == 2 && Math.abs(deplacementY) == 2) {
+                        int milieuX = (caseChoisi.getX() + caseActuelle.getX()) / 2;
+                        int milieuY = (caseChoisi.getY() + caseActuelle.getY()) / 2;
+                        Case caseMilieu = plateau.getCase(milieuX, milieuY);
+                        caseMilieu.retirerPiece();
+                        System.out.println("Pièce mangée en: " + milieuX + ", " + milieuY);
+                    }
+                    caseActuelle.placerPiece(caseChoisi.getPiece());
+                    caseChoisi.retirerPiece();
+                    if (caseActuelle.getPiece() instanceof Pion && (caseActuelle.getX() == 0 || caseActuelle.getX() == 9)) {
+                        caseActuelle.placerPiece(new Dame(caseActuelle.getPiece().getProprietaire()));
+                    }
+                    changeJoueurActif();
+                    caseChoisi = null;
+                    mettreAJourPlateau();
+                } else {
+                    System.out.println("Déplacement invalide");
+                    caseChoisi = null;
+                }
             }
         });
     }
