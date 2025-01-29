@@ -35,13 +35,15 @@ public class StatistiquesJeu extends JPanel {
         labelActif.setText("Au tour du : " + joueurActif.getNom());
     }
 
-    public void ScoreJoueur (Joueur joueur) {
+    public void ScoreJoueur(Joueur joueur) {
         if (joueur == joueur1) {
             scoreJoueur1++;
             labelPointJoueur1.setText("Score du Joueur 1 : " + scoreJoueur1);
+            System.out.println("Score du Joueur 1 mis à jour : " + scoreJoueur1);
         } else if (joueur == joueur2) {
             scoreJoueur2++;
             labelPointJoueur2.setText("Score du Joueur 2 : " + scoreJoueur2);
+            System.out.println("Score du Joueur 2 mis à jour : " + scoreJoueur2);
         }
     }
 
