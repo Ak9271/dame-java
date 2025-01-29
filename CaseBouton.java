@@ -4,7 +4,7 @@ import javax.swing.*;
 public class CaseBouton extends JButton {
     public static final Color PION_GRAY = new Color(211, 211, 211);
     public static final Color PION_BLEU = new Color(53, 64, 73);
-    public static final Color DAME_GRAY = new Color(235, 230, 214); // reine joueur 1
+    public static final Color DAME_GRAY = new Color(219, 211, 181); // reine joueur 1
     public static final Color DAME_BLEU = new Color(33, 44, 53); // reine joueur 2
 
     private Piece piece;
