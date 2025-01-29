@@ -1,7 +1,6 @@
 # Jeu de Dames
 
 
-
 ## À propos
 
 **Ce projet est une implémentation d'un jeu de dames en Java avec une interface graphique utilisant Swing.**
@@ -52,7 +51,6 @@ Le projet est composé des classes suivantes :
 ## Compatibilité et Limitations
 
 - Fonctionne sur Windows, macOS et Linux avec Java installé.
-- Peut être étendu pour intégrer un mode en ligne ou une intelligence artificielle pour jouer contre l'ordinateur.
 
 ## Problèmes connus
 
