@@ -39,13 +39,10 @@ Le projet est composé des classes suivantes :
    ```sh
    git clone https://github.com/Ak9271/dame-java
    ```
-2. Compilez les fichiers Java :
+2. Exécutez le jeu :
    ```sh
-   javac -d bin src/*.java
-   ```
-3. Exécutez le jeu :
-   ```sh
-   java -cp bin Jeu
+   javac Jeu.java
+   java Jeu
    ```
 
 ## Compatibilité et Limitations
